@@ -71,6 +71,7 @@ define Build/Compile
 	$(CP) $(LINUX_DIR)/.config $(PKG_BUILD_DIR)
 
 	$(PKG_BUILD_DIR)/scripts/config --file $(PKG_BUILD_DIR)/.config \
+		--disable DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT \
 		--disable DEBUG_INFO_NONE \
 		--disable DEBUG_INFO_REDUCED \
 		--disable DEBUG_INFO_SPLIT \
@@ -87,6 +88,7 @@ define Build/Compile
 		--enable CONFIG_CGROUP_NET_PRIO \
 		--enable CONFIG_NET_NS \
 		--enable DEBUG_INFO_BTF \
+		--enable DEBUG_INFO_DWARF5 \
 		--enable FTRACE \
 		--enable KPROBE_EVENTS \
 		--enable KPROBES \
@@ -114,6 +116,7 @@ define Build/Compile
 		--enable UPROBES \
 		--enable XDP_SOCKETS \
 		--enable XDP_SOCKETS_DIAG \
+		--set-str EXTRA_FIRMWARE "" \
 		--set-str INITRAMFS_SOURCE ""
 
 	+$(MAKE) -C $(PKG_BUILD_DIR) $(PKG_JOBS) $(KERNEL_MAKE_FLAGS) olddefconfig
