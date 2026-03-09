@@ -88,7 +88,7 @@ define Build/Compile
 		--enable CONFIG_CGROUP_NET_PRIO \
 		--enable CONFIG_NET_NS \
 		--enable DEBUG_INFO_BTF \
-		--enable DEBUG_INFO_DWARF5 \
+		--enable DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT \
 		--enable FTRACE \
 		--enable KPROBE_EVENTS \
 		--enable KPROBES \
@@ -120,7 +120,11 @@ define Build/Compile
 		--set-str INITRAMFS_SOURCE ""
 
 	+$(MAKE) -C $(PKG_BUILD_DIR) $(PKG_JOBS) $(KERNEL_MAKE_FLAGS) olddefconfig
-	+$(MAKE) -C $(PKG_BUILD_DIR) $(PKG_JOBS) $(KERNEL_MAKE_FLAGS) vmlinux
+	+$(MAKE) -C $(PKG_BUILD_DIR) \
+		$(PKG_JOBS) \
+		$(KERNEL_MAKE_FLAGS) \
+		KBUILD_HOSTLDFLAGS="$(KBUILD_HOSTLDFLAGS) -lz" \
+		vmlinux
 	pahole --btf_encode_detached $(PKG_BUILD_DIR)/vmlinux.btf $(PKG_BUILD_DIR)/vmlinux
 endef
 
