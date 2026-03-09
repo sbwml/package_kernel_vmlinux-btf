@@ -63,7 +63,7 @@ define Build/Prepare
 		$(PATCH) -p1 -d $(PKG_BUILD_DIR) < $(p); \
 	)
 	[ -d "$(GENERIC_HACK_DIR)" ] && $(foreach p,$(wildcard $(GENERIC_HACK_DIR)/*.patch), \
-		{ [ -n "$$SKIP_GENERIC_PLATFORM_FILES_PATCHES" ] && grep -Eq "drivers/net/phy/b53/Kconfig|drivers/net/phy/rtl8261n/Kconfig" $(p) && echo "Skipping $(p)"; } || \
+		{ [ -n "$$SKIP_GENERIC_PLATFORM_FILES_PATCHES" ] && grep -Eq "drivers/net/phy/b53/Kconfig|drivers/net/phy/rtl8261n/Kconfig|fallback-sprom" $(p) && echo "Skipping $(p)"; } || \
 		$(PATCH) -p1 -d $(PKG_BUILD_DIR) < $(p); \
 	)
 endef
@@ -75,7 +75,6 @@ define Build/Compile
 		--disable DEBUG_INFO_NONE \
 		--disable DEBUG_INFO_REDUCED \
 		--disable DEBUG_INFO_SPLIT \
-		--disable BCMA_FALLBACK_SPROM \
 		--disable WERROR \
 		--enable BPF \
 		--enable BPF_EVENTS \
