@@ -11,7 +11,6 @@ PKG_NAME:=vmlinux-btf
 PKG_VERSION:=$(LINUX_VERSION)
 PKG_PATCHVER:=$(word 1,$(subst ., ,$(PKG_VERSION))).$(word 2,$(subst ., ,$(PKG_VERSION)))
 
-PKG_BUILD_DEPENDS:=dwarves/host
 PKG_BUILD_PARALLEL:=1
 
 PKG_SOURCE:=$(LINUX_SOURCE)

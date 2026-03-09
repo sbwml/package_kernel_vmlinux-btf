@@ -1,0 +1,3 @@
+#!/bin/sh
+# fake objtool that does nothing
+exit 0
